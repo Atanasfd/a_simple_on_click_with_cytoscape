@@ -1,1 +1,1 @@
-# a_simple_on_click_with_cytoscape
+# a_simple_website_with_on_click_functions_with_cytoscape
