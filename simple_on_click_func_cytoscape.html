@@ -1,0 +1,114 @@
+<!doctype html>
+
+
+<html>
+
+<head>
+<title>Cytoscape for even and uneven triggers</title>
+<script src="cytoscape.js"></script>
+</head>
+
+<style>
+#cy{
+		width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        left: 0px;
+}
+</style>
+
+
+<body>
+    <div id="cy"></div>
+    <script>
+
+      var cy = cytoscape({
+        container: document.getElementById('cy'),
+        elements: [
+          { data: { id: 'a', type : 'a' } },
+         ],
+		 style:[
+		 {
+			selector: 'node[type="a"]',
+			style:{
+			//'shape':'triangle',
+			'background-color':'red'
+			}
+		 },
+		 {
+			selector: 'node[type="even"]',
+			style:{
+			//'shape':'square',
+			'background-color':'orange',
+			'label': 'even'
+			}
+		 },
+		 {
+			selector: 'node[type="uneven"]',
+			style:{
+			'background-color':'yellow',
+			'label' : 'uneven'
+			}
+		 }
+		 
+		 
+		 
+		 ] 
+				
+      });
+	  ele=[]
+	  nod=[]
+	  for(i=0;i<10;i++){
+		if (i%2==0){
+			ele.push({data:{id: i,type : 'even'}});
+			nod.push({
+			data: {
+				id: 'a'+i,
+				source: 'a',
+				target: i
+			
+			}
+			})
+		}
+		else{
+						ele.push({data:{id: i,type : 'uneven'}});
+			nod.push({
+				data: {
+					id: 'a'+i,
+					source: 'a',
+					target: i
+			}})
+			};
+		cy.add(ele);
+		cy.add(nod);
+		
+				var options={
+			name : 'concentric', // type of diagram
+	  padding: 50, // the padding on fit
+	  avoidOverlap: true, // prevents node overlap, may overflow boundingBox and radius if not enough space
+	  spacingFactor: 2, // Applies a multiplicative factor (>0) to expand or compress the overall area that the nodes take up
+	  startAngle: 3 / 2 * Math.PI, // where nodes start in radians
+	  clockwise: true, // whether the layout should go clockwise (true) or counterclockwise/anticlockwise (false)
+	  
+		}
+		
+		layout = cy.layout(options);
+		layout.run();
+		
+		
+	  }
+	  cy.on('click','node',function(evt){
+		if(this.id() === 'a'){
+			alert("center");
+		
+		
+		}else{
+	  alert('clicked node number '+this.id());
+	  }
+		});
+	  
+
+    </script>
+</body>
+</html>
